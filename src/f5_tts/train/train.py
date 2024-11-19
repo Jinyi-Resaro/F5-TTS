@@ -17,24 +17,24 @@ mel_spec_type = "vocos"  # 'vocos' or 'bigvgan'
 
 tokenizer = "pinyin"  # 'pinyin', 'char', or 'custom'
 tokenizer_path = None  # if tokenizer = 'custom', define the path to the tokenizer you want to use (should be vocab.txt)
-dataset_name = "Emilia_ZH_EN"
+dataset_name = "singapore_parliament"
 
 # -------------------------- Training Settings -------------------------- #
 
 exp_name = "F5TTS_Base"  # F5TTS_Base | E2TTS_Base
 
-learning_rate = 7.5e-5
+learning_rate = 5e-06
 
-batch_size_per_gpu = 38400  # 8 GPUs, 8 * 38400 = 307200
+batch_size_per_gpu = 2400  # 8 GPUs, 8 * 38400 = 307200
 batch_size_type = "frame"  # "frame" or "sample"
-max_samples = 64  # max sequences per batch if use frame-wise batch_size. we set 32 for small models, 64 for base models
-grad_accumulation_steps = 1  # note: updates = steps / grad_accumulation_steps
+max_samples = 16  # max sequences per batch if use frame-wise batch_size. we set 32 for small models, 64 for base models
+grad_accumulation_steps = 4  # note: updates = steps / grad_accumulation_steps
 max_grad_norm = 1.0
 
-epochs = 11  # use linear decay, thus epochs control the slope
-num_warmup_updates = 20000  # warmup steps
-save_per_updates = 50000  # save checkpoint per steps
-last_per_steps = 5000  # save last checkpoint per steps
+epochs = 20  # use linear decay, thus epochs control the slope
+num_warmup_updates = 200  # warmup steps
+save_per_updates = 1000  # save checkpoint per steps
+last_per_steps = 1000  # save last checkpoint per steps
 
 # model params
 if exp_name == "F5TTS_Base":

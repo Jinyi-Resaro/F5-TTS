@@ -62,12 +62,15 @@ def read_audio_text_pairs(csv_file_path):
 
     parent = Path(csv_file_path).parent
     with open(csv_file_path, mode="r", newline="", encoding="utf-8-sig") as csvfile:
-        reader = csv.reader(csvfile, delimiter="|")
-        next(reader)  # Skip the header row
-        for row in reader:
-            if len(row) >= 2:
-                audio_file = row[0].strip()  # First column: audio file path
-                text = row[1].strip()  # Second column: text
+        # Skip header row
+        next(csvfile)
+        for line in csvfile:
+            # Split on first comma
+            parts = line.split(',', 1)
+            if len(parts) == 2:
+                audio_file = parts[0].strip()
+                # Remove quotes and strip whitespace from text
+                text = parts[1].strip().strip('"')
                 audio_file_path = parent / audio_file
                 audio_text_pairs.append((audio_file_path.as_posix(), text))
 
